@@ -413,6 +413,7 @@ function App() {
   const [language, setLanguage] = useState(getInitialLanguage)
   const [menuOpen, setMenuOpen] = useState(false)
   const [visitorCount, setVisitorCount] = useState(null)
+  const [headerExpanded, setHeaderExpanded] = useState(false)
 
   const t = copy[language]
   const currentYear = new Date().getFullYear()
@@ -427,6 +428,16 @@ function App() {
     document.documentElement.lang = language === 'pt' ? 'pt-BR' : 'en'
     window.localStorage.setItem('language', language)
   }, [language])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHeaderExpanded(window.scrollY > 12)
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     if (!isFirebaseConfigured) {
@@ -513,8 +524,9 @@ function App() {
           <span className="orb-drip" />
         </div>
       </div>
-      <header className="site-header">
-        <div className="header-inner container">
+      <div className="ai-network" aria-hidden="true" />
+      <header className={`site-header ${headerExpanded ? 'is-expanded' : ''}`}>
+        <div className="header-inner">
           <a className="brand" href="#top">
             Isabela Camara
           </a>
@@ -552,13 +564,33 @@ function App() {
 
           <div className="toggles">
             <button
-              className="toggle-button"
+              className="toggle-button icon-button"
               type="button"
               onClick={toggleTheme}
               aria-pressed={theme === 'dark'}
+              aria-label={
+                theme === 'dark' ? t.toggles.light : t.toggles.dark
+              }
             >
-              <span className="toggle-label">{t.toggles.theme}</span>
-              <span>{theme === 'dark' ? t.toggles.dark : t.toggles.light}</span>
+              <span className="sr-only">{t.toggles.theme}</span>
+              {theme === 'dark' ? (
+                <svg
+                  className="icon icon-moon"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M21 15.2A9.5 9.5 0 1 1 8.8 3a8 8 0 1 0 12.2 12.2Z" />
+                </svg>
+              ) : (
+                <svg
+                  className="icon icon-sun"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="4.2" />
+                  <path d="M12 2.5v2.4M12 19.1v2.4M4.3 4.3l1.7 1.7M18 18l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.3 19.7 6 18M18 6l1.7-1.7" />
+                </svg>
+              )}
             </button>
             <button
               className="toggle-button"
