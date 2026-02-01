@@ -11,11 +11,11 @@
 - Website/portfolio para www.isabelacamara.com.
 - Mostrar trabalhos como desenvolvedora e sites ja entregues.
 - Incluir mini bio, capacitacoes, cursos, habilidades e certificacoes.
-- Blog com noticias e informacoes relevantes do mundo da tecnologia.
 - Contato visivel e facil.
 - Rodape com contador de visitantes.
 - Header com troca de tema (claro/escuro) e troca de idioma (PT/EN).
 - Animacoes variadas e uma interacao com o usuario (a definir).
+- Sem secao de blog.
 
 ## Direcao visual
 - Minimalista, moderno e elegante.
@@ -30,14 +30,12 @@
 - Sobre/mini bio.
 - Habilidades e stack.
 - Cursos e certificacoes.
-- Blog (lista + detalhe).
 - Contato (formulario + links sociais).
 - Rodape (contador de visitantes + links essenciais).
 
 ## Funcionalidades obrigatorias
 - Toggle de tema claro/escuro com persistencia (localStorage).
 - Toggle de idioma PT/EN no header.
-- Blog pronto para atualizacoes frequentes.
 - Contador de visitantes no rodape (dados agregados, sem PII).
 - Animacoes: entrada de pagina, reveal em scroll, e interacoes sutis.
 - Interacao com usuario: ainda nao definida (registrar ideias aqui).
@@ -57,7 +55,7 @@
 
 ## Dados e integracoes
 - Firebase centraliza dados e hosting.
-- Firestore guarda portfolio, blog, skills, cursos, certificacoes e contador de visitantes.
+- Firestore guarda portfolio, skills, cursos, certificacoes e contador de visitantes.
 - Colecao `site_metrics`, documento `visitor_total`, campo `value`.
 - Todas as chaves devem ficar em variaveis de ambiente com prefixo VITE_.
 - Evitar dados sensiveis no front-end.
@@ -90,7 +88,7 @@
 
 ## Sites de inspiracao (observacoes rapidas)
 - https://www.itsoffbrand.com/ : estudio criativo, foco em branding, web de alta performance, menciona 3D/WebGL.
-- https://oakharborwebdesigns.com/ : foco em servicos e proposta de valor clara, destaca cases e blog.
+- https://oakharborwebdesigns.com/ : foco em servicos e proposta de valor clara, destaca cases.
 - https://m7mad.dev/ : portfolio pessoal, foco em projetos e interacoes.
 - https://www.radnaabazar.com/en : portfolio multi-idioma, narrativa pessoal rica, projetos e contato.
 - https://rondeobalos.com/ : portfolio clean com intro direta e projetos.

@@ -1,32 +1,26 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { Moon, Sun } from 'lucide-react'
 import { incrementVisitorCount, isFirebaseConfigured } from './lib/firebase'
 import { useReveal } from './hooks/useReveal'
-import { useBubbleBackground } from './hooks/useBubbleBackground'
+import { useInteractiveBackground } from './hooks/useInteractiveBackground'
+import logo from './assets/logo/ic-logo.png'
 
 const copy = {
   pt: {
     nav: {
-      work: 'Trabalhos',
+      home: 'Home',
       about: 'Sobre',
-      skills: 'Habilidades',
-      courses: 'Cursos',
-      blog: 'Blog',
+      projects: 'Projetos',
       contact: 'Contato',
     },
     hero: {
-      kicker: 'Desenvolvedora web',
       title: 'Isabela Camara',
-      subtitle:
-        'Crio experiencias digitais com foco em performance, narrativa e UX. Portfolio de projetos, estudos e experimentos.',
+      subtitle: {
+        lead: 'Crio experiências digitais que priorizam performance, clareza e experiência do usuário.',
+        follow: 'Aqui você encontra meus projetos, estudos e laboratórios.',
+      },
       ctaPrimary: 'Ver projetos',
       ctaSecondary: 'Entrar em contato',
-      note: 'Disponivel para freela e parcerias em 2025.',
-      highlightsTitle: 'Foco atual',
-      highlights: [
-        'Sites responsivos e acessiveis',
-        'Animacoes leves com JavaScript',
-        'SEO e performance',
-      ],
     },
     sections: {
       work: 'Trabalhos recentes',
@@ -34,7 +28,6 @@ const copy = {
       skills: 'Habilidades',
       courses: 'Cursos e capacitacoes',
       certifications: 'Certificacoes',
-      blog: 'Blog',
       contact: 'Contato',
     },
     about: {
@@ -70,10 +63,6 @@ const copy = {
     certifications: {
       intro: 'Certificacoes atuais e metas futuras.',
     },
-    blog: {
-      intro: 'Noticias, insights e referencias do mundo da tecnologia.',
-      cta: 'Ver todos',
-    },
     contact: {
       intro: 'Tem um projeto em mente? Vamos conversar e desenhar a melhor solucao.',
       name: 'Nome',
@@ -106,27 +95,19 @@ const copy = {
   },
   en: {
     nav: {
-      work: 'Work',
+      home: 'Home',
       about: 'About',
-      skills: 'Skills',
-      courses: 'Courses',
-      blog: 'Blog',
+      projects: 'Projects',
       contact: 'Contact',
     },
     hero: {
-      kicker: 'Web developer',
       title: 'Isabela Camara',
-      subtitle:
-        'I craft digital experiences focused on performance, story, and UX. Portfolio of projects, studies, and experiments.',
+      subtitle: {
+        lead: 'I create digital experiences focused on performance, clarity, and user experience.',
+        follow: 'Explore my projects, studies, and labs.',
+      },
       ctaPrimary: 'View projects',
       ctaSecondary: 'Get in touch',
-      note: 'Open for freelance and partnerships in 2025.',
-      highlightsTitle: 'Current focus',
-      highlights: [
-        'Responsive and accessible sites',
-        'Lightweight JavaScript animations',
-        'SEO and performance',
-      ],
     },
     sections: {
       work: 'Recent work',
@@ -134,7 +115,6 @@ const copy = {
       skills: 'Skills',
       courses: 'Courses and training',
       certifications: 'Certifications',
-      blog: 'Blog',
       contact: 'Contact',
     },
     about: {
@@ -169,10 +149,6 @@ const copy = {
     },
     certifications: {
       intro: 'Current certifications and future goals.',
-    },
-    blog: {
-      intro: 'News, insights, and references from the tech world.',
-      cta: 'View all',
     },
     contact: {
       intro: 'Have a project in mind? Lets talk and design the best solution.',
@@ -257,45 +233,6 @@ const projects = [
   },
 ]
 
-const blogPosts = [
-  {
-    title: {
-      pt: 'Tendencias de UI para 2025',
-      en: 'UI trends for 2025',
-    },
-    excerpt: {
-      pt: 'Gradientes vivos, tipografia expressiva e layouts modulares.',
-      en: 'Bold gradients, expressive typography, and modular layouts.',
-    },
-    date: '2024-10-05',
-    tag: 'Design',
-  },
-  {
-    title: {
-      pt: 'Animacoes leves com JavaScript',
-      en: 'Lightweight animations with JavaScript',
-    },
-    excerpt: {
-      pt: 'Como criar movimento sem pesar no carregamento.',
-      en: 'How to create motion without heavy load times.',
-    },
-    date: '2024-09-18',
-    tag: 'Front-end',
-  },
-  {
-    title: {
-      pt: 'Checklist de performance para lancamentos',
-      en: 'Performance checklist for launches',
-    },
-    excerpt: {
-      pt: 'Pequenos ajustes que deixam o site mais rapido.',
-      en: 'Small tweaks that make the site faster.',
-    },
-    date: '2024-08-30',
-    tag: 'Performance',
-  },
-]
-
 const skillGroups = [
   {
     key: 'frontend',
@@ -377,7 +314,7 @@ const contactLinks = [
 
 const getInitialTheme = () => {
   if (typeof window === 'undefined') {
-    return 'light'
+    return 'dark'
   }
 
   const stored = window.localStorage.getItem('theme')
@@ -385,9 +322,7 @@ const getInitialTheme = () => {
     return stored
   }
 
-  return window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light'
+  return 'dark'
 }
 
 const getInitialLanguage = () => {
@@ -406,17 +341,18 @@ const getInitialLanguage = () => {
 
 function App() {
   useReveal()
-  const bubbleRef = useRef(null)
-  useBubbleBackground(bubbleRef)
 
   const [theme, setTheme] = useState(getInitialTheme)
   const [language, setLanguage] = useState(getInitialLanguage)
   const [menuOpen, setMenuOpen] = useState(false)
   const [visitorCount, setVisitorCount] = useState(null)
   const [headerExpanded, setHeaderExpanded] = useState(false)
+  const backgroundRef = useRef(null)
 
   const t = copy[language]
   const currentYear = new Date().getFullYear()
+
+  useInteractiveBackground(backgroundRef)
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -486,49 +422,20 @@ function App() {
 
   return (
     <div className="page" id="top">
-      <div className="orb-layer" aria-hidden="true" ref={bubbleRef}>
-        <svg className="orb-filter" aria-hidden="true" focusable="false">
-          <filter
-            id="ink-blob"
-            x="-0.3"
-            y="-0.3"
-            width="1.6"
-            height="1.6"
-            colorInterpolationFilters="sRGB"
-          >
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.012 0.02"
-              numOctaves="2"
-              seed="2"
-              result="noise"
-              data-orb-turbulence
-            />
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="noise"
-              scale="14"
-              xChannelSelector="R"
-              yChannelSelector="G"
-              data-orb-displacement
-            />
-          </filter>
-        </svg>
-        <svg className="orb-rings" viewBox="0 0 400 400" aria-hidden="true">
-          <circle className="ring ring-1" cx="200" cy="200" r="150" />
-          <circle className="ring ring-2" cx="200" cy="200" r="190" />
-          <circle className="ring ring-3" cx="200" cy="200" r="230" />
-        </svg>
-        <div className="cursor-dot" />
-        <div className="orb orb-primary">
-          <span className="orb-drip" />
-        </div>
+      <div className="interactive-bg" aria-hidden="true" ref={backgroundRef} />
+      <div className="orbit-layer" aria-hidden="true">
+        <div className="orbit-lines orbit-lines--cursor" />
+        <div className="orbit-lines orbit-lines--static orbit-lines--one" />
+        <div className="orbit-lines orbit-lines--static orbit-lines--two" />
+        <div className="orbit-lines orbit-lines--static orbit-lines--three" />
       </div>
-      <div className="ai-network" aria-hidden="true" />
+      <div className="ai-network ai-network--top" aria-hidden="true" />
+      <div className="ai-network ai-network--mid" aria-hidden="true" />
+      <div className="ai-network ai-network--bottom" aria-hidden="true" />
       <header className={`site-header ${headerExpanded ? 'is-expanded' : ''}`}>
         <div className="header-inner">
           <a className="brand" href="#top">
-            Isabela Camara
+            <img className="brand-logo" src={logo} alt="Logo Isabela Camara" />
           </a>
 
           <button
@@ -542,20 +449,14 @@ function App() {
           </button>
 
           <nav className={`nav-links ${menuOpen ? 'is-open' : ''}`}>
-            <a href="#work" onClick={handleNavClick}>
-              {t.nav.work}
+            <a href="#top" onClick={handleNavClick}>
+              {t.nav.home}
             </a>
             <a href="#about" onClick={handleNavClick}>
               {t.nav.about}
             </a>
-            <a href="#skills" onClick={handleNavClick}>
-              {t.nav.skills}
-            </a>
-            <a href="#courses" onClick={handleNavClick}>
-              {t.nav.courses}
-            </a>
-            <a href="#blog" onClick={handleNavClick}>
-              {t.nav.blog}
+            <a href="#work" onClick={handleNavClick}>
+              {t.nav.projects}
             </a>
             <a href="#contact" onClick={handleNavClick}>
               {t.nav.contact}
@@ -564,7 +465,7 @@ function App() {
 
           <div className="toggles">
             <button
-              className="toggle-button icon-button"
+              className="theme-switch"
               type="button"
               onClick={toggleTheme}
               aria-pressed={theme === 'dark'}
@@ -573,24 +474,15 @@ function App() {
               }
             >
               <span className="sr-only">{t.toggles.theme}</span>
-              {theme === 'dark' ? (
-                <svg
-                  className="icon icon-moon"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M21 15.2A9.5 9.5 0 1 1 8.8 3a8 8 0 1 0 12.2 12.2Z" />
-                </svg>
-              ) : (
-                <svg
-                  className="icon icon-sun"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <circle cx="12" cy="12" r="4.2" />
-                  <path d="M12 2.5v2.4M12 19.1v2.4M4.3 4.3l1.7 1.7M18 18l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.3 19.7 6 18M18 6l1.7-1.7" />
-                </svg>
-              )}
+              <span className="theme-switch__track" aria-hidden="true">
+                <span className="theme-switch__icon">
+                  <Sun aria-hidden="true" />
+                </span>
+                <span className="theme-switch__icon">
+                  <Moon aria-hidden="true" />
+                </span>
+              </span>
+              <span className="theme-switch__thumb" aria-hidden="true" />
             </button>
             <button
               className="toggle-button"
@@ -609,12 +501,17 @@ function App() {
         <section className="section hero">
           <div className="container hero-grid">
             <div className="reveal" data-reveal>
-              <div className="hero-kicker">{t.hero.kicker}</div>
               <h1 className="hero-title">
-                {t.hero.title}
-                <span>Portfolio</span>
+                <span className="hero-title-name">{t.hero.title}</span>
               </h1>
-              <p className="hero-subtitle">{t.hero.subtitle}</p>
+              <p className="hero-subtitle">
+                {t.hero.subtitle.lead}
+                <span className="hero-subtitle-line">
+                  {t.hero.subtitle.follow}
+                </span>
+              </p>
+            </div>
+            <div className="hero-cta-panel reveal" data-reveal>
               <div className="hero-actions">
                 <a className="button" href="#work">
                   {t.hero.ctaPrimary}
@@ -623,15 +520,6 @@ function App() {
                   {t.hero.ctaSecondary}
                 </a>
               </div>
-              <p className="hero-note">{t.hero.note}</p>
-            </div>
-            <div className="hero-card reveal" data-reveal>
-              <h3>{t.hero.highlightsTitle}</h3>
-              <ul className="hero-list">
-                {t.hero.highlights.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
             </div>
           </div>
         </section>
@@ -642,7 +530,7 @@ function App() {
               {t.sections.work}
             </h2>
             <p className="section-subtitle reveal" data-reveal>
-              {t.hero.subtitle}
+              {t.hero.subtitle.lead}
             </p>
             <div className="card-grid">
               {projects.map((project) => (
@@ -749,30 +637,6 @@ function App() {
           </div>
         </section>
 
-        <section className="section" id="blog">
-          <div className="container">
-            <h2 className="section-title reveal" data-reveal>
-              {t.sections.blog}
-            </h2>
-            <p className="section-subtitle reveal" data-reveal>
-              {t.blog.intro}
-            </p>
-            <div className="blog-grid">
-              {blogPosts.map((post) => (
-                <article className="card blog-card reveal" data-reveal key={post.title.en}>
-                  <div className="blog-meta">
-                    <span>{post.tag}</span>
-                    <span>{post.date}</span>
-                  </div>
-                  <h4>{post.title[language]}</h4>
-                  <p className="muted">{post.excerpt[language]}</p>
-                  <span className="status-pill">{t.blog.cta}</span>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="section" id="contact">
           <div className="container">
             <h2 className="section-title reveal" data-reveal>
@@ -817,6 +681,7 @@ function App() {
       </main>
 
       <footer className="site-footer">
+        <div className="ai-network ai-network--footer" aria-hidden="true" />
         <div className="container footer-grid">
           <div>
             <div className="visitor-count">
