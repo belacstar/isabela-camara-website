@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Moon, Sun } from 'lucide-react'
+import { Github, Linkedin, Mail, Moon, Sun } from 'lucide-react'
 import { incrementVisitorCount, isFirebaseConfigured } from './lib/firebase'
 import { useReveal } from './hooks/useReveal'
 import { useInteractiveBackground } from './hooks/useInteractiveBackground'
@@ -297,18 +297,18 @@ const certifications = [
 const contactLinks = [
   {
     label: 'Email',
-    value: 'contato@isabelacamara.com',
+    icon: Mail,
     href: 'mailto:contato@isabelacamara.com',
   },
   {
     label: 'GitHub',
-    value: 'github.com/belacstar',
+    icon: Github,
     href: 'https://github.com/belacstar',
   },
   {
     label: 'LinkedIn',
-    value: 'linkedin.com/in/isabela-camara',
-    href: 'https://linkedin.com/in/isabela-camara',
+    icon: Linkedin,
+    href: 'https://www.linkedin.com/in/isabela-camara-',
   },
 ]
 
@@ -500,7 +500,7 @@ function App() {
       <main>
         <section className="section hero">
           <div className="container hero-grid">
-            <div className="reveal" data-reveal>
+            <div className="hero-content reveal" data-reveal>
               <h1 className="hero-title">
                 <span className="hero-title-name">{t.hero.title}</span>
               </h1>
@@ -669,8 +669,17 @@ function App() {
                 <h4>{t.contact.details}</h4>
                 <div className="chip-row">
                   {contactLinks.map((link) => (
-                    <a className="chip" key={link.label} href={link.href}>
-                      {link.value}
+                    <a
+                      className="chip chip--icon"
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={link.label}
+                      title={link.label}
+                    >
+                      <link.icon className="icon" aria-hidden="true" />
+                      <span className="sr-only">{link.label}</span>
                     </a>
                   ))}
                 </div>
