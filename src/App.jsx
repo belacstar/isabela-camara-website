@@ -4,6 +4,9 @@ import { incrementVisitorCount, isFirebaseConfigured } from './lib/firebase'
 import { useReveal } from './hooks/useReveal'
 import { useInteractiveBackground } from './hooks/useInteractiveBackground'
 import logo from './assets/logo/ic-logo.png'
+import casamentoPreview from './assets/sites/casamento.png'
+import chingLingPreview from './assets/sites/ching-ling.png'
+import casaBuziosPreview from './assets/sites/casa-buzios.png'
 
 const copy = {
   pt: {
@@ -16,19 +19,24 @@ const copy = {
     hero: {
       title: 'Isabela Camara',
       subtitle: {
-        lead: 'Crio experiências digitais que priorizam performance, clareza e experiência do usuário.',
+        lead:
+          'Crio experiências digitais que priorizam performance, clareza e experiência do usuário.',
         follow: 'Aqui você encontra meus projetos, estudos e laboratórios.',
       },
       ctaPrimary: 'Ver projetos',
       ctaSecondary: 'Entrar em contato',
     },
     sections: {
-      work: 'Trabalhos recentes',
+      work: 'Últimos Projetos',
       about: 'Sobre mim',
       skills: 'Habilidades',
       courses: 'Cursos e capacitacoes',
       certifications: 'Certificacoes',
       contact: 'Contato',
+    },
+    projects: {
+      visit: 'Visitar site',
+      unavailable: 'Link indisponível',
     },
     about: {
       body:
@@ -117,6 +125,10 @@ const copy = {
       certifications: 'Certifications',
       contact: 'Contact',
     },
+    projects: {
+      visit: 'Visit site',
+      unavailable: 'Link unavailable',
+    },
     about: {
       body:
         'Web developer focused on functional design, clear interfaces, and user experience. I like turning ideas into elegant, easy to use digital products.',
@@ -182,54 +194,69 @@ const copy = {
   },
 }
 
-const projects = [
+const featuredProjects = [
   {
     title: {
-      pt: 'Site institucional para estudio criativo',
-      en: 'Institutional site for a creative studio',
+      pt: 'Plataforma para casamento',
+      en: 'Wedding platform',
     },
-    description: {
-      pt: 'Narrativa visual forte com foco em servicos e identidade.',
-      en: 'Strong visual narrative focused on services and identity.',
+    summary: {
+      pt: 'Aplicação web sob medida para centralizar RSVP, convite digital com QR Code, check-in do evento e lista de presentes com fluxo de ecommerce. Backend serverless com Firestore garante automação, rastreabilidade e geração de convites em PDF, além de validação de acesso por QR Code no dia do evento. A lista de presentes funciona como ecommerce simplificado com catálogo dinâmico, contribuições e integração de pagamento.',
+      en: 'Custom web app to centralize RSVP, digital invitations with QR Code, event check-in, and a gift list with ecommerce flow. A serverless backend with Firestore ensures automation, traceability, PDF invitation generation, and QR code access validation on event day. The gift list works as a lightweight ecommerce with dynamic catalog, contributions, and payment integration.',
     },
-    tags: ['React', 'Vite', 'UI/UX'],
+    stack: [
+      'React',
+      'Vite',
+      'Tailwind CSS',
+      'Firebase',
+      'Node.js',
+    ],
+    tech: [],
     status: 'live',
+    link: 'https://www.casamentopriscilaeluizfelipe.com/',
+    image: casamentoPreview,
+    imageAlt: {
+      pt: 'Preview da plataforma de casamento',
+      en: 'Wedding platform preview',
+    },
   },
   {
     title: {
-      pt: 'E-commerce minimalista com foco em conversao',
-      en: 'Minimal e-commerce focused on conversion',
+      pt: 'Ching Ling',
+      en: 'Ching Ling',
     },
-    description: {
-      pt: 'Checkout rapido, vitrine modular e performance otimizada.',
-      en: 'Fast checkout, modular showcase, and optimized performance.',
+    summary: {
+      pt: 'Site institucional desenvolvido para um restaurante de culinária chinesa e japonesa, com foco em fortalecer a presença digital e centralizar informações essenciais. Reúne descrição, localização, horários e contato, além de um cardápio digital organizado por categorias com pratos e descrições. O projeto prioriza usabilidade, design limpo e performance, oferecendo experiência fluida em desktop e mobile com layout responsivo e fácil manutenção.',
+      en: 'Institutional website for a Chinese and Japanese restaurant, focused on strengthening the digital presence and centralizing essential information. It includes description, location, hours, and contact details, plus a digital menu organized by categories with dishes and descriptions. The project prioritizes usability, clean design, and performance, delivering a smooth experience on desktop and mobile with a responsive layout and easy maintenance.',
     },
-    tags: ['React', 'Firestore', 'SEO'],
-    status: 'in-progress',
-  },
-  {
-    title: {
-      pt: 'Portfolio interativo com animacoes',
-      en: 'Interactive portfolio with animations',
-    },
-    description: {
-      pt: 'Transicoes suaves e micro interacoes em scroll.',
-      en: 'Smooth transitions and scroll micro interactions.',
-    },
-    tags: ['Motion', 'JavaScript', 'Design'],
-    status: 'soon',
-  },
-  {
-    title: {
-      pt: 'Landing page para SaaS B2B',
-      en: 'Landing page for B2B SaaS',
-    },
-    description: {
-      pt: 'Estrutura clara para conversao com provas sociais.',
-      en: 'Clear conversion structure with social proof.',
-    },
-    tags: ['UX', 'Copy', 'Analytics'],
+    stack: ['React', 'Vite', 'Tailwind CSS', 'JavaScript'],
+    tech: [],
     status: 'live',
+    link: 'https://restaurantechingling.com.br/',
+    image: chingLingPreview,
+    imageAlt: {
+      pt: 'Preview do site Ching Ling',
+      en: 'Ching Ling website preview',
+    },
+  },
+  {
+    title: {
+      pt: 'Casa Alegria',
+      en: 'Casa Alegria',
+    },
+    summary: {
+      pt: 'Site institucional para divulgar um imóvel de aluguel por temporada em Búzios (RJ), com foco em apresentar a propriedade de forma atrativa, clara e confiável, facilitando contato e reserva. Centraliza descrição dos ambientes, diferenciais, localização, regras da casa e canais de contato, além de destacar imagens voltadas à experiência do hóspede. O projeto segue abordagem mobile-first, garantindo ótima navegação em smartphones, com carregamento rápido e fácil manutenção.',
+      en: 'Institutional website to promote a seasonal rental property in Búzios (RJ), focused on presenting the house in an attractive, clear, and reliable way, facilitating contact and booking. It centralizes room descriptions, highlights, location, house rules, and contact channels, plus imagery aimed at the guest experience. The project is mobile-first, ensuring great smartphone navigation, fast loading, and easy maintenance.',
+    },
+    stack: ['React', 'Vite', 'Tailwind CSS', 'JavaScript'],
+    tech: [],
+    status: 'live',
+    link: 'https://casaalegriabuzios.com.br/',
+    image: casaBuziosPreview,
+    imageAlt: {
+      pt: 'Preview do site Casa Alegria',
+      en: 'Casa Alegria website preview',
+    },
   },
 ]
 
@@ -348,6 +375,9 @@ function App() {
   const [visitorCount, setVisitorCount] = useState(null)
   const [headerExpanded, setHeaderExpanded] = useState(false)
   const backgroundRef = useRef(null)
+  const lastScrollY = useRef(0)
+  const autoScrollLock = useRef(false)
+  const autoScrollTimeout = useRef(null)
 
   const t = copy[language]
   const currentYear = new Date().getFullYear()
@@ -366,13 +396,44 @@ function App() {
   }, [language])
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+
+    const scrollToTop = () => {
+      autoScrollLock.current = true
+      window.scrollTo({
+        top: 0,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      })
+      if (autoScrollTimeout.current) {
+        window.clearTimeout(autoScrollTimeout.current)
+      }
+      autoScrollTimeout.current = window.setTimeout(() => {
+        autoScrollLock.current = false
+      }, prefersReducedMotion ? 0 : 700)
+    }
+
     const handleScroll = () => {
-      setHeaderExpanded(window.scrollY > 12)
+      const currentY = window.scrollY
+      setHeaderExpanded(currentY > 12)
+
+      const delta = currentY - lastScrollY.current
+      if (!autoScrollLock.current && delta < -40 && currentY > 160) {
+        scrollToTop()
+      }
+
+      lastScrollY.current = currentY
     }
 
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (autoScrollTimeout.current) {
+        window.clearTimeout(autoScrollTimeout.current)
+      }
+    }
   }, [])
 
   useEffect(() => {
@@ -434,7 +495,7 @@ function App() {
       <div className="ai-network ai-network--bottom" aria-hidden="true" />
       <header className={`site-header ${headerExpanded ? 'is-expanded' : ''}`}>
         <div className="header-inner">
-          <a className="brand" href="#top">
+          <a className="brand" href="#top" onClick={handleNavClick}>
             <img className="brand-logo" src={logo} alt="Logo Isabela Camara" />
           </a>
 
@@ -525,30 +586,84 @@ function App() {
         </section>
 
         <section className="section" id="work">
-          <div className="container">
+          <div className="container container--wide">
             <h2 className="section-title reveal" data-reveal>
               {t.sections.work}
             </h2>
-            <p className="section-subtitle reveal" data-reveal>
-              {t.hero.subtitle.lead}
-            </p>
-            <div className="card-grid">
-              {projects.map((project) => (
-                <article className="card reveal" data-reveal key={project.title.en}>
-                  <div className="status-pill">
-                    {t.projectStatus[project.status]}
-                  </div>
-                  <h4>{project.title[language]}</h4>
-                  <p className="muted">{project.description[language]}</p>
-                  <div className="chip-row">
-                    {project.tags.map((tag) => (
-                      <span className="chip" key={tag}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              ))}
+            <div className="project-preview-grid">
+              {featuredProjects.map((project) => {
+                const hasLink = Boolean(project.link)
+
+                return (
+                  <article
+                    className="project-preview reveal"
+                    data-reveal
+                    key={project.title.en}
+                  >
+                    <div className="project-preview__media">
+                      <div className="project-preview__image-wrap">
+                        <img
+                          className="project-preview__image"
+                          src={project.image}
+                          alt={project.imageAlt[language]}
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                    <div className="project-preview__content">
+                      <div className="project-preview__header">
+                        <h3>{project.title[language]}</h3>
+                      </div>
+                      <p className="project-preview__summary">
+                        {project.summary[language]}
+                      </p>
+                      <div className="project-preview__section">
+                        <div className="chip-row">
+                          {project.stack.map((tag) => (
+                            <span className="chip" key={tag}>
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="project-preview__actions">
+                        <a
+                          className="button project-preview__link"
+                          href={hasLink ? project.link : '#'}
+                          target={hasLink ? '_blank' : undefined}
+                          rel={hasLink ? 'noreferrer' : undefined}
+                          aria-disabled={!hasLink}
+                          data-disabled={!hasLink}
+                        >
+                          {hasLink ? t.projects.visit : t.projects.unavailable}
+                          {hasLink && (
+                            <span className="button-icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" role="img">
+                                <path
+                                  d="M14 4h6v6m0-6L10 14"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <path
+                                  d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </span>
+                          )}
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+                )
+              })}
             </div>
           </div>
         </section>
